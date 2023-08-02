@@ -44,7 +44,7 @@
                     </ssd:ParameterBinding>
                 </ssd:ParameterBindings>
             </ssd:Component>
-            <ssd:Component type="application/x-fmu-sharedlibrary" source="/tmp/model_fmu/sl-1-0-sensor-model-repository-template.fmu" implementation="CoSimulation" name="SensorModel" description="">
+            <ssd:Component type="application/x-fmu-sharedlibrary" source="/tmp/model_fmu/sl-2-0-traffic-participant-model-repository-template.fmu" implementation="CoSimulation" name="Model" description="">
                 <ssd:Connectors>
                     <ssd:Connector name="OSMPSensorDataOut.base.hi" kind="output">
                         <ssc:Integer/>
@@ -84,9 +84,9 @@
             </ssd:Component>
         </ssd:Elements>
         <ssd:Connections>
-            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.base.hi" endElement="SensorModel" endConnector="OSMPSensorViewIn.base.hi" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.size" endElement="SensorModel" endConnector="OSMPSensorViewIn.size" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.base.lo" endElement="SensorModel" endConnector="OSMPSensorViewIn.base.lo" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.base.hi" endElement="Model" endConnector="OSMPSensorViewIn.base.hi" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.size" endElement="Model" endConnector="OSMPSensorViewIn.size" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.base.lo" endElement="Model" endConnector="OSMPSensorViewIn.base.lo" suppressUnitConversion="false"/>
         </ssd:Connections>
         <ssd:SystemGeometry x1="-619.0" y1="-666.5" x2="1849.5" y2="126.5"/>
     </ssd:System>
