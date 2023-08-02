@@ -105,13 +105,6 @@ jobs:
           path: openmcx
           key: ${{ runner.os }}-openmcx
 
-      - name: Cache Protobuf
-        id: cache-protobuf
-        uses: actions/cache@v3
-        with:
-          path: protobuf-21.12
-          key: ${{ runner.os }}-protobuf
-
       - name: Download ProtoBuf
         if: steps.cache-protobuf.outputs.cache-hit != 'true'
         run: curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protobuf-all-21.12.tar.gz && tar xzvf protobuf-all-21.12.tar.gz
