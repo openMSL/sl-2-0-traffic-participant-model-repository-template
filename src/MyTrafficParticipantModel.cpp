@@ -5,20 +5,19 @@
 // The MPL-2.0 is only an example here. You can choose any other open source license accepted by OpenMSL, or any other license if this template is used elsewhere.
 //
 
-#include "MySensorModel.h"
-
 #include <algorithm>
 #include <cmath>
 
+#include "MyTrafficParticipantModel.h"
 #include "osi_sensordata.pb.h"
 #include "osi_sensorview.pb.h"
 
-void MySensorModel::Init(double nominal_range_in)
+void MyTrafficParticipantModel::Init(double nominal_range_in)
 {
     nominal_range_ = nominal_range_in;
 }
 
-osi3::SensorData MySensorModel::Step(osi3::SensorView current_in, double time)
+osi3::SensorData MyTrafficParticipantModel::Step(osi3::SensorView current_in, double time)
 {
     osi3::SensorData current_out;
 
@@ -179,7 +178,7 @@ osi3::SensorData MySensorModel::Step(osi3::SensorView current_in, double time)
  *
  * Positive rotation is counter clockwise (right-hand rule).
  */
-void MySensorModel::RotatePointXYZ(double x, double y, double z, double yaw, double pitch, double roll, double& rx, double& ry, double& rz)
+void MyTrafficParticipantModel::RotatePointXYZ(double x, double y, double z, double yaw, double pitch, double roll, double& rx, double& ry, double& rz)
 {
     double matrix[3][3];
     double cos_yaw = cos(yaw);
@@ -208,7 +207,7 @@ void MySensorModel::RotatePointXYZ(double x, double y, double z, double yaw, dou
  * @brief Transform global OSI ground truth coordinate to vehicle coordinate
  * system (origin of vehicle coordinate system: center rear axle).
  */
-void MySensorModel::TransformCoordinateGlobalToVehicle(double& rx,
+void MyTrafficParticipantModel::TransformCoordinateGlobalToVehicle(double& rx,
                                                        double& ry,
                                                        double& rz,
                                                        double ego_x,
@@ -239,7 +238,7 @@ void MySensorModel::TransformCoordinateGlobalToVehicle(double& rx,
  * @brief Transform coordinate from vehicle coordinate system to
  * virtual/physical sensor coordinate system.
  */
-void MySensorModel::TransformCoordinateVehicleToSensor(double& rx,
+void MyTrafficParticipantModel::TransformCoordinateVehicleToSensor(double& rx,
                                                        double& ry,
                                                        double& rz,
                                                        double mounting_position_x,

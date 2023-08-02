@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fmiModelDescription
   fmiVersion="2.0"
-  modelName="sl-1-0-sensor-model-repository-template"
+  modelName="sl-2-0-traffic-participant-model-repository-template"
   guid="@FMUGUID@"
-  description="Demonstration C++ Sensor FMU for OSI Sensor Model Packaging within OpenMSL"
+  description="Demonstration C++ Traffic Participant FMU for OSI Sensor Model Packaging within OpenMSL"
   author="Persival GmbH"
   version="@OSMPVERSION@"
   generationTool="Based on OSMPDummySensor"
   generationDateAndTime="@FMUTIMESTAMP@"
   variableNamingConvention="structured">
   <CoSimulation
-    modelIdentifier="sl-1-0-sensor-model-repository-template"
+    modelIdentifier="sl-2-0-traffic-participant-model-repository-template"
     canHandleVariableCommunicationStepSize="true"
     canNotUseMemoryManagementFunctions="true">
     <SourceFiles>

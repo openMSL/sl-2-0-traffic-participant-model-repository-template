@@ -9,17 +9,17 @@ string(MD5 FMUGUID modelDescription.in.xml)
 configure_file(modelDescription.in.xml modelDescription.xml @ONLY)
 
 find_package(Protobuf 2.6.1 REQUIRED)
-add_library(sl-1-0-sensor-model-repository-template SHARED
+add_library(sl-2-0-traffic-participant-model-repository-template SHARED
 		OSMP.cpp
 		OSMP.h
-		MySensorModel.cpp
-		MySensorModel.h)
-set_target_properties(sl-1-0-sensor-model-repository-template PROPERTIES PREFIX "")
-target_compile_definitions(sl-1-0-sensor-model-repository-template PRIVATE "FMU_SHARED_OBJECT")
+		MyTrafficParticipantModel.cpp
+		MyTrafficParticipantModel.h)
+set_target_properties(sl-2-0-traffic-participant-model-repository-template PROPERTIES PREFIX "")
+target_compile_definitions(sl-2-0-traffic-participant-model-repository-template PRIVATE "FMU_SHARED_OBJECT")
 if(LINK_WITH_SHARED_OSI)
-	target_link_libraries(sl-1-0-sensor-model-repository-template open_simulation_interface)
+	target_link_libraries(sl-2-0-traffic-participant-model-repository-template open_simulation_interface)
 else()
-	target_link_libraries(sl-1-0-sensor-model-repository-template open_simulation_interface_pic)
+	target_link_libraries(sl-2-0-traffic-participant-model-repository-template open_simulation_interface_pic)
 endif()
 
 if(WIN32)
@@ -42,7 +42,7 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	endif()
 endif()
 
-add_custom_command(TARGET sl-1-0-sensor-model-repository-template
+add_custom_command(TARGET sl-2-0-traffic-participant-model-repository-template
 		POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_CURRENT_BINARY_DIR}/buildfmu"
 		COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources"
@@ -51,8 +51,8 @@ add_custom_command(TARGET sl-1-0-sensor-model-repository-template
 		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/modelDescription.xml" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu"
 		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/OSMP.cpp" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources/"
 		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/OSMP.h" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources/"
-		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/MySensorModel.cpp" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources/"
-		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/MySensorModel.h" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources/"
-		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/../sl-1-0-sensor-model-repository-template.srmd" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/extra/net.pmsf.ssp.srmd/resourceMetaData.srmd"
-		COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:sl-1-0-sensor-model-repository-template> $<$<PLATFORM_ID:Windows>:$<$<CONFIG:Debug>:$<TARGET_PDB_FILE:sl-1-0-sensor-model-repository-template>>> "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/binaries/${FMI_BINARIES_PLATFORM}"
-		COMMAND ${CMAKE_COMMAND} -E chdir "${CMAKE_CURRENT_BINARY_DIR}/buildfmu" ${CMAKE_COMMAND} -E tar "cfv" "${FMU_INSTALL_DIR}/sl-1-0-sensor-model-repository-template.fmu" --format=zip "modelDescription.xml" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/binaries/${FMI_BINARIES_PLATFORM}")
+		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/MyTrafficParticipantModel.cpp" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources/"
+		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/MyTrafficParticipantModel.h" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources/"
+		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/../sl-2-0-traffic-participant-model-repository-template.srmd" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/extra/net.pmsf.ssp.srmd/resourceMetaData.srmd"
+		COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:sl-2-0-traffic-participant-model-repository-template> $<$<PLATFORM_ID:Windows>:$<$<CONFIG:Debug>:$<TARGET_PDB_FILE:sl-2-0-traffic-participant-model-repository-template>>> "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/binaries/${FMI_BINARIES_PLATFORM}"
+		COMMAND ${CMAKE_COMMAND} -E chdir "${CMAKE_CURRENT_BINARY_DIR}/buildfmu" ${CMAKE_COMMAND} -E tar "cfv" "${FMU_INSTALL_DIR}/sl-2-0-traffic-participant-model-repository-template.fmu" --format=zip "modelDescription.xml" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/sources" "${CMAKE_CURRENT_BINARY_DIR}/buildfmu/binaries/${FMI_BINARIES_PLATFORM}")

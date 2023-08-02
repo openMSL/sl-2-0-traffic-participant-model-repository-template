@@ -76,7 +76,7 @@
 
 #undef min
 #undef max
-#include "MySensorModel.h"
+#include "MyTrafficParticipantModel.h"
 #include "osi_sensordata.pb.h"
 #include "osi_sensorview.pb.h"
 
@@ -224,7 +224,7 @@ class OSMP
     string* current_config_request_buffer_;
     string* last_config_request_buffer_;
 
-    MySensorModel my_sensor_model_;
+    MyTrafficParticipantModel my_sensor_model_;
 
     /* Simple Accessors */
     fmi2Boolean FmiValid()

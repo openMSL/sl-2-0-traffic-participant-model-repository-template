@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-#include "../../src/MySensorModel.h"
+#include "../../src/MyTrafficParticipantModel.h"
 #include "gtest/gtest.h"
 
 class ISensorModelTest : public ::testing::Test
@@ -26,7 +26,7 @@ TEST_F(ISensorModelTest, YawRotation)
     double ry = 0.0;
     double rz = 0.0;
 
-    MySensorModel::RotatePointXYZ(x, y, z, yaw, pitch, roll, rx, ry, rz);
+    MyTrafficParticipantModel::RotatePointXYZ(x, y, z, yaw, pitch, roll, rx, ry, rz);
 
     EXPECT_NEAR(rx, -3.0, 0.000001);
     EXPECT_NEAR(ry, 5.0, 0.000001);
@@ -57,7 +57,7 @@ TEST_F(ISensorModelTest, TranslationToVehicle)
     double rel_y = obj_y;
     double rel_z = obj_z;
 
-    MySensorModel::TransformCoordinateGlobalToVehicle(rel_x, rel_y, rel_z,
+    MyTrafficParticipantModel::TransformCoordinateGlobalToVehicle(rel_x, rel_y, rel_z,
                                                          ego_x, ego_y, ego_z,
                                                          ego_yaw, ego_pitch, ego_roll,
                                                          ego_bb_center_to_rear_x, ego_bb_center_to_rear_y, ego_bb_center_to_rear_z);
@@ -91,7 +91,7 @@ TEST_F(ISensorModelTest, RotationToVehicle)
     double rel_y = obj_y;
     double rel_z = obj_z;
 
-    MySensorModel::TransformCoordinateGlobalToVehicle(rel_x, rel_y, rel_z,
+    MyTrafficParticipantModel::TransformCoordinateGlobalToVehicle(rel_x, rel_y, rel_z,
                                                          ego_x, ego_y, ego_z,
                                                          ego_yaw, ego_pitch, ego_roll,
                                                          ego_bb_center_to_rear_x, ego_bb_center_to_rear_y, ego_bb_center_to_rear_z);
@@ -120,7 +120,7 @@ TEST_F(ISensorModelTest, TranslationToSensor)
     double rel_y = obj_y;
     double rel_z = obj_z;
 
-    MySensorModel::TransformCoordinateVehicleToSensor(rel_x, rel_y, rel_z,
+    MyTrafficParticipantModel::TransformCoordinateVehicleToSensor(rel_x, rel_y, rel_z,
                                                          mounting_position_x, mounting_position_y, mounting_position_z,
                                                          mounting_position_yaw, mounting_position_pitch, mounting_position_roll);
 
@@ -148,7 +148,7 @@ TEST_F(ISensorModelTest, RotationToSensor)
     double rel_y = obj_y;
     double rel_z = obj_z;
 
-    MySensorModel::TransformCoordinateVehicleToSensor(rel_x, rel_y, rel_z,
+    MyTrafficParticipantModel::TransformCoordinateVehicleToSensor(rel_x, rel_y, rel_z,
                                                          mounting_position_x, mounting_position_y, mounting_position_z,
                                                          mounting_position_yaw, mounting_position_pitch, mounting_position_roll);
 
@@ -176,7 +176,7 @@ TEST_F(ISensorModelTest, TransformToSensor)
     double rel_y = obj_y;
     double rel_z = obj_z;
 
-    MySensorModel::TransformCoordinateVehicleToSensor(rel_x, rel_y, rel_z,
+    MyTrafficParticipantModel::TransformCoordinateVehicleToSensor(rel_x, rel_y, rel_z,
                                                          mounting_position_x, mounting_position_y, mounting_position_z,
                                                          mounting_position_yaw, mounting_position_pitch, mounting_position_roll);
 

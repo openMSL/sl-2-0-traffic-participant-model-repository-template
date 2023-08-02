@@ -9,7 +9,7 @@
 
 #include "osi_sensordata.pb.h"
 
-class MySensorModel
+class MyTrafficParticipantModel
 {
   public:
     void Init(double nominal_range_in);
