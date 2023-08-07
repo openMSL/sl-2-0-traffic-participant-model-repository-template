@@ -45,7 +45,7 @@
                             <ssv:ParameterSet version="1.0" name="Internal Parameter-Set">
                                 <ssv:Parameters>
                                     <ssv:Parameter name="xosc_path">
-                                        <ssv:String value="./test/integration/002_smoke_test_scenario/cut-in_simple.xosc"/>
+                                        <ssv:String value="./test/integration/002_smoke_test_scenario/control_scenario.xosc"/>
                                     </ssv:Parameter>
                                     <ssv:Parameter name="use_viewer">
                                         <ssv:Boolean value="false"/>
@@ -96,9 +96,9 @@
             </ssd:Component>
         </ssd:Elements>
         <ssd:Connections>
-            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.base.lo" endElement="esmini" endConnector="OSMPTrafficUpdateIn.base.lo" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.base.hi" endElement="esmini" endConnector="OSMPTrafficUpdateIn.base.hi" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.size" endElement="esmini" endConnector="OSMPTrafficUpdateIn.size" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.base.lo" endElement="EsminiOsiSource" endConnector="OSMPTrafficUpdateIn.base.lo" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.base.hi" endElement="EsminiOsiSource" endConnector="OSMPTrafficUpdateIn.base.hi" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.size" endElement="EsminiOsiSource" endConnector="OSMPTrafficUpdateIn.size" suppressUnitConversion="false"/>
             <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.base.hi" endElement="Model" endConnector="OSMPSensorViewIn.base.hi" suppressUnitConversion="false"/>
             <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.size" endElement="Model" endConnector="OSMPSensorViewIn.size" suppressUnitConversion="false"/>
             <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.base.lo" endElement="Model" endConnector="OSMPSensorViewIn.base.lo" suppressUnitConversion="false"/>
