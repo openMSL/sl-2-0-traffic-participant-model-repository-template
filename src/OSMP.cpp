@@ -145,24 +145,24 @@ bool OSMP::GetFmiSensorViewIn(osi3::SensorView& data)
     return false;
 }
 
-void OSMP::SetFmiSensorDataOut(const osi3::SensorData& data)
+void OSMP::SetFmiTrafficUpdateOut(const osi3::TrafficUpdate& data)
 {
     data.SerializeToString(current_output_buffer_);
-    EncodePointerToInteger(current_output_buffer_->data(), integer_vars_[FMI_INTEGER_SENSORDATA_OUT_BASEHI_IDX], integer_vars_[FMI_INTEGER_SENSORDATA_OUT_BASELO_IDX]);
-    integer_vars_[FMI_INTEGER_SENSORDATA_OUT_SIZE_IDX] = (fmi2Integer)current_output_buffer_->length();
+    EncodePointerToInteger(current_output_buffer_->data(), integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_BASELO_IDX]);
+    integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_SIZE_IDX] = (fmi2Integer)current_output_buffer_->length();
     NormalLog("OSMP",
               "Providing %08X %08X, writing from %p ...",
-              integer_vars_[FMI_INTEGER_SENSORDATA_OUT_BASEHI_IDX],
-              integer_vars_[FMI_INTEGER_SENSORDATA_OUT_BASELO_IDX],
+              integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_BASEHI_IDX],
+              integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_BASELO_IDX],
               current_output_buffer_->data());
     swap(current_output_buffer_, last_output_buffer_);
 }
 
-void OSMP::ResetFmiSensorDataOut()
+void OSMP::ResetFmiTrafficUpdateOut()
 {
-    integer_vars_[FMI_INTEGER_SENSORDATA_OUT_SIZE_IDX] = 0;
-    integer_vars_[FMI_INTEGER_SENSORDATA_OUT_BASEHI_IDX] = 0;
-    integer_vars_[FMI_INTEGER_SENSORDATA_OUT_BASELO_IDX] = 0;
+    integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_SIZE_IDX] = 0;
+    integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_BASEHI_IDX] = 0;
+    integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_BASELO_IDX] = 0;
 }
 
 void OSMP::RefreshFmiSensorViewConfigRequest()
@@ -177,11 +177,11 @@ void OSMP::RefreshFmiSensorViewConfigRequest()
         config.Clear();
         config.mutable_version()->CopyFrom(osi3::InterfaceVersion::descriptor()->file()->options().GetExtension(osi3::current_interface_version));
         const double field_of_view = 3.14;
-        const double range_factor = 1.1;
+        const double range = 100;
         const uint32_t update_nanos = 20000000;
         config.set_field_of_view_horizontal(field_of_view);
         config.set_field_of_view_vertical(field_of_view);
-        config.set_range(FmiNominalRange() * range_factor);
+        config.set_range(range);
         config.mutable_update_cycle_time()->set_seconds(0);
         config.mutable_update_cycle_time()->set_nanos(update_nanos);
         config.mutable_update_cycle_offset()->Clear();
@@ -223,8 +223,6 @@ fmi2Status OSMP::DoInit()
         string_var = "";
     }
 
-    const double nominal_range = 135.0;
-    SetFmiNominalRange(nominal_range);
     return fmi2OK;
 }
 
@@ -261,8 +259,8 @@ fmi2Status OSMP::DoExitInitializationMode()
                   config.mounting_position().orientation().yaw());
     }
 
-    // initialize sensor model
-    my_sensor_model_.Init(FmiNominalRange());
+    // initialize model
+    my_model_.Init();
 
     return fmi2OK;
 }
@@ -272,22 +270,20 @@ fmi2Status OSMP::DoCalc(fmi2Real current_communication_point, fmi2Real communica
 
     osi3::SensorView current_in;
     double time = current_communication_point + communication_step_size;
-    NormalLog("OSI", "Calculating Sensor at %f for %f (step size %f)", current_communication_point, time, communication_step_size);
+    NormalLog("OSI", "Calculating Traffic Update at %f for %f (step size %f)", current_communication_point, time, communication_step_size);
     if (GetFmiSensorViewIn(current_in))
     {
-        osi3::SensorData current_out = my_sensor_model_.Step(current_in, time);
+        osi3::TrafficUpdate current_out = my_model_.Step(current_in, time);
         /* Serialize */
-        SetFmiSensorDataOut(current_out);
+        SetFmiTrafficUpdateOut(current_out);
         SetFmiValid(1);
-        SetFmiCount(current_out.moving_object_size());
     }
     else
     {
         /* We have no valid input, so no valid output */
         NormalLog("OSI", "No valid input, therefore providing no valid output.");
-        ResetFmiSensorDataOut();
+        ResetFmiTrafficUpdateOut();
         SetFmiValid(0);
-        SetFmiCount(0);
     }
     return fmi2OK;
 }

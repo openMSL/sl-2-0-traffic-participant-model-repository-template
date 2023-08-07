@@ -8,39 +8,20 @@
 #pragma once
 
 #include "osi_sensordata.pb.h"
+#include "osi_trafficupdate.pb.h"
 
 class MyTrafficParticipantModel
 {
   public:
-    void Init(double nominal_range_in);
-    osi3::SensorData Step(osi3::SensorView current_in, double time);
+    void Init();
+    osi3::TrafficUpdate Step(const osi3::SensorView& current_in, double time);
 
-    static void RotatePointXYZ(double x, double y, double z, double yaw, double pitch, double roll, double& rx, double& ry, double& rz);
-    static void TransformCoordinateGlobalToVehicle(double& rx,
-                                                   double& ry,
-                                                   double& rz,
-                                                   double ego_x,
-                                                   double ego_y,
-                                                   double ego_z,
-                                                   double ego_yaw,
-                                                   double ego_pitch,
-                                                   double ego_roll,
-                                                   double ego_bbcenter_to_rear_x,
-                                                   double ego_bbcenter_to_rear_y,
-                                                   double ego_bbcenter_to_rear_z);
-
-    static void TransformCoordinateVehicleToSensor(double& rx,
-                                                   double& ry,
-                                                   double& rz,
-                                                   double mounting_position_x,
-                                                   double mounting_position_y,
-                                                   double mounting_position_z,
-                                                   double mounting_position_yaw,
-                                                   double mounting_position_pitch,
-                                                   double mounting_position_roll);
+    static double CalcNewPosition(double current_position, double velocity, double delta_time);
 
   private:
-    double nominal_range_;
+    double acceleration_m_s_;
+    double last_time_step_;
+    double max_velocity_;
 
     /* Private File-based Logging just for Debugging */
 #ifdef PRIVATE_LOG_PATH

@@ -46,22 +46,20 @@
 #define FMI_INTEGER_SENSORVIEW_IN_BASELO_IDX 0
 #define FMI_INTEGER_SENSORVIEW_IN_BASEHI_IDX 1
 #define FMI_INTEGER_SENSORVIEW_IN_SIZE_IDX 2
-#define FMI_INTEGER_SENSORDATA_OUT_BASELO_IDX 3
-#define FMI_INTEGER_SENSORDATA_OUT_BASEHI_IDX 4
-#define FMI_INTEGER_SENSORDATA_OUT_SIZE_IDX 5
+#define FMI_INTEGER_TRAFFICUPDATE_OUT_BASELO_IDX 3
+#define FMI_INTEGER_TRAFFICUPDATE_OUT_BASEHI_IDX 4
+#define FMI_INTEGER_TRAFFICUPDATE_OUT_SIZE_IDX 5
 #define FMI_INTEGER_SENSORVIEW_CONFIG_REQUEST_BASELO_IDX 6
 #define FMI_INTEGER_SENSORVIEW_CONFIG_REQUEST_BASEHI_IDX 7
 #define FMI_INTEGER_SENSORVIEW_CONFIG_REQUEST_SIZE_IDX 8
 #define FMI_INTEGER_SENSORVIEW_CONFIG_BASELO_IDX 9
 #define FMI_INTEGER_SENSORVIEW_CONFIG_BASEHI_IDX 10
 #define FMI_INTEGER_SENSORVIEW_CONFIG_SIZE_IDX 11
-#define FMI_INTEGER_COUNT_IDX 12
-#define FMI_INTEGER_LAST_IDX FMI_INTEGER_COUNT_IDX
+#define FMI_INTEGER_LAST_IDX FMI_INTEGER_SENSORVIEW_CONFIG_SIZE_IDX
 #define FMI_INTEGER_VARS (FMI_INTEGER_LAST_IDX + 1)
 
 /* Real Variables */
-#define FMI_REAL_NOMINAL_RANGE_IDX 0
-#define FMI_REAL_LAST_IDX FMI_REAL_NOMINAL_RANGE_IDX
+#define FMI_REAL_LAST_IDX 0
 #define FMI_REAL_VARS (FMI_REAL_LAST_IDX + 1)
 
 /* String Variables */
@@ -79,6 +77,7 @@
 #include "MyTrafficParticipantModel.h"
 #include "osi_sensordata.pb.h"
 #include "osi_sensorview.pb.h"
+#include "osi_trafficupdate.pb.h"
 
 using namespace std;
 
@@ -224,7 +223,7 @@ class OSMP
     string* current_config_request_buffer_;
     string* last_config_request_buffer_;
 
-    MyTrafficParticipantModel my_sensor_model_;
+    MyTrafficParticipantModel my_model_;
 
     /* Simple Accessors */
     fmi2Boolean FmiValid()
@@ -235,30 +234,14 @@ class OSMP
     {
         boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value;
     }
-    fmi2Integer FmiCount()
-    {
-        return integer_vars_[FMI_INTEGER_COUNT_IDX];
-    }
-    void SetFmiCount(fmi2Integer value)
-    {
-        integer_vars_[FMI_INTEGER_COUNT_IDX] = value;
-    }
-    fmi2Real FmiNominalRange()
-    {
-        return real_vars_[FMI_REAL_NOMINAL_RANGE_IDX];
-    }
-    void SetFmiNominalRange(fmi2Real value)
-    {
-        real_vars_[FMI_REAL_NOMINAL_RANGE_IDX] = value;
-    }
 
     /* Protocol Buffer Accessors */
     bool GetFmiSensorViewConfig(osi3::SensorViewConfiguration& data);
     void SetFmiSensorViewConfigRequest(const osi3::SensorViewConfiguration& data);
     void ResetFmiSensorViewConfigRequest();
     bool GetFmiSensorViewIn(osi3::SensorView& data);
-    void SetFmiSensorDataOut(const osi3::SensorData& data);
-    void ResetFmiSensorDataOut();
+    void SetFmiTrafficUpdateOut(const osi3::TrafficUpdate& data);
+    void ResetFmiTrafficUpdateOut();
 
     /* Refreshing of Calculated Parameters */
     void RefreshFmiSensorViewConfigRequest();
