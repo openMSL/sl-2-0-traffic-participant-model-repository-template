@@ -12,7 +12,7 @@
 
 void MyTrafficParticipantModel::Init()
 {
-    acceleration_m_s_ = 2.0;
+    acceleration_m_s_ = 1.0;
     last_time_step_ = 0;
     max_velocity_ = 13.89;
 }
@@ -30,12 +30,14 @@ osi3::TrafficUpdate MyTrafficParticipantModel::Step(const osi3::SensorView& curr
         {
             // Simple constant acceleration model
             auto *update = current_out.add_update();
-            double new_velocity = obj.base().velocity().x() + acceleration_m_s_ * delta_time;
+            double velocity = obj.base().velocity().x();
+            double new_velocity = velocity + acceleration_m_s_ * delta_time;
             if (new_velocity < max_velocity_)   //check if new velocity is lower than the set maximum
             {
-                update->mutable_base()->mutable_velocity()->set_x(new_velocity);
-                update->mutable_base()->mutable_position()->set_x(CalcNewPosition(obj.base().position().x(), new_velocity, delta_time));
+                velocity = new_velocity;
             }
+            update->mutable_base()->mutable_velocity()->set_x(velocity);
+            update->mutable_base()->mutable_position()->set_x(CalcNewPosition(obj.base().position().x(), velocity, delta_time));
         }
     }
 
