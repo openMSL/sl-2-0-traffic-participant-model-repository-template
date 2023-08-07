@@ -110,5 +110,10 @@
       <Unknown index="6"/>
       <Unknown index="13"/>
     </Outputs>
+    <InitialUnknowns>
+      <Unknown index="7" dependencies="10 11 12"/>
+      <Unknown index="8" dependencies="10 11 12"/>
+      <Unknown index="9" dependencies="10 11 12"/>
+    </InitialUnknowns>
   </ModelStructure>
 </fmiModelDescription>
