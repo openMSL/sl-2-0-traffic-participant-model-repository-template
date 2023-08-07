@@ -33,7 +33,7 @@ jobs:
     - name: Build ProtoBuf
       if: steps.cache-protobuf.outputs.cache-hit != 'true' && steps.check_files.outputs.files_exists == 'true'
       working-directory: protobuf-21.12
-      run: ./configure DIST_LANG=cpp --prefix=/usr && make -j4
+      run: ./configure DIST_LANG=cpp --disable-shared CXXFLAGS="-fPIC" && make -j4
 
     - name: Install ProtoBuf
       if: steps.check_files.outputs.files_exists == 'true'
