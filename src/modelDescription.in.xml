@@ -45,22 +45,22 @@
         <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPSensorViewIn" role="size" mime-type="application/x-open-simulation-interface; type=SensorView; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
-    <ScalarVariable name="OSMPSensorDataOut.base.lo" valueReference="3" causality="output" variability="discrete" initial="exact">
+    <ScalarVariable name="OSMPTrafficUpdateOut.base.lo" valueReference="3" causality="output" variability="discrete" initial="exact">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPSensorDataOut" role="base.lo" mime-type="application/x-open-simulation-interface; type=SensorData; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficUpdateOut" role="base.lo" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
-    <ScalarVariable name="OSMPSensorDataOut.base.hi" valueReference="4" causality="output" variability="discrete" initial="exact">
+    <ScalarVariable name="OSMPTrafficUpdateOut.base.hi" valueReference="4" causality="output" variability="discrete" initial="exact">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPSensorDataOut" role="base.hi" mime-type="application/x-open-simulation-interface; type=SensorData; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficUpdateOut" role="base.hi" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
-    <ScalarVariable name="OSMPSensorDataOut.size" valueReference="5" causality="output" variability="discrete" initial="exact">
+    <ScalarVariable name="OSMPTrafficUpdateOut.size" valueReference="5" causality="output" variability="discrete" initial="exact">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPSensorDataOut" role="size" mime-type="application/x-open-simulation-interface; type=SensorData; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficUpdateOut" role="size" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
     <ScalarVariable name="OSMPSensorViewInConfigRequest.base.lo" valueReference="6" causality="calculatedParameter" variability="fixed" initial="calculated">
