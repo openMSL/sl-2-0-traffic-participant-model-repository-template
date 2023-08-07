@@ -62,7 +62,7 @@
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="1.0" y="0.714286"/>
                     </ssd:Connector>
-                    <ssd:Connector name="OSMPTrafficUpdateOut.base.hi" kind="input">
+                    <ssd:Connector name="OSMPSensorViewIn.base.hi" kind="input">
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="0.0" y="0.714286"/>
                     </ssd:Connector>
@@ -78,7 +78,7 @@
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="0.0" y="0.576786"/>
                     </ssd:Connector>
-                    <ssd:Connector name="OSMPSensorDataOut.base.lo" kind="output">
+                    <ssd:Connector name="OSMPTrafficUpdateOut.base.lo" kind="output">
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="1.0" y="0.857143"/>
                     </ssd:Connector>
