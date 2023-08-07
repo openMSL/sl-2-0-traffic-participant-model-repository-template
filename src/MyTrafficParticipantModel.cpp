@@ -6,7 +6,6 @@
 //
 
 #include <cmath>
-
 #include "MyTrafficParticipantModel.h"
 #include "osi_sensorview.pb.h"
 
@@ -31,9 +30,8 @@ osi3::TrafficUpdate MyTrafficParticipantModel::Step(const osi3::SensorView& curr
             // Simple constant acceleration model
             auto *update = current_out.add_update();
             double velocity = obj.base().velocity().x();
-
             double new_velocity = velocity + acceleration_m_s_ * delta_time;
-            if (new_velocity < max_velocity_)   //check if new velocity is lower than the set maximum
+            if (new_velocity < max_velocity_) //check if new velocity is lower than the set maximum
             {
                 velocity = new_velocity;
             }
