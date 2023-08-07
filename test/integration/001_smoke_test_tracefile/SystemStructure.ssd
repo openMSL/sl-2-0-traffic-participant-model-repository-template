@@ -43,7 +43,7 @@
             </ssd:Component>
             <ssd:Component type="application/x-fmu-sharedlibrary" source="/tmp/model_fmu/sl-2-0-traffic-participant-model-repository-template.fmu" implementation="CoSimulation" name="Model" description="">
                 <ssd:Connectors>
-                    <ssd:Connector name="OSMPSensorDataOut.base.hi" kind="output">
+                    <ssd:Connector name="OSMPTrafficUpdateOut.base.hi" kind="output">
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="1.0" y="0.714286"/>
                     </ssd:Connector>
@@ -51,7 +51,7 @@
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="0.0" y="0.714286"/>
                     </ssd:Connector>
-                    <ssd:Connector name="OSMPSensorDataOut.size" kind="output">
+                    <ssd:Connector name="OSMPTrafficUpdateOut.size" kind="output">
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="1.0" y="0.571429"/>
                     </ssd:Connector>
@@ -63,7 +63,7 @@
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="0.0" y="0.576786"/>
                     </ssd:Connector>
-                    <ssd:Connector name="OSMPSensorDataOut.base.lo" kind="output">
+                    <ssd:Connector name="OSMPTrafficUpdateOut.base.lo" kind="output">
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="1.0" y="0.857143"/>
                     </ssd:Connector>
