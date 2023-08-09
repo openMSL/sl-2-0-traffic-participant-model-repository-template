@@ -109,7 +109,7 @@ IEEEDataPort,
 
 ## State-of-the-Art
 
-This section is a state-of-the-art collection for the sensor model sub-library.
+This section is a state-of-the-art collection for the traffic participant model sub-library.
 When you clone this template to implement your own model, delete this entire section from the readme.
 
 ### Traffic Participant Model Validation and Verification
