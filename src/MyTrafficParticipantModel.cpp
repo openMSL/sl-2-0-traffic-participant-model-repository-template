@@ -5,8 +5,10 @@
 // The MPL-2.0 is only an example here. You can choose any other open source license accepted by OpenMSL, or any other license if this template is used elsewhere.
 //
 
-#include <cmath>
 #include "MyTrafficParticipantModel.h"
+
+#include <cmath>
+
 #include "osi_sensorview.pb.h"
 
 void MyTrafficParticipantModel::Init(std::string theinstance_name, fmi2CallbackFunctions thefunctions, bool thelogging_on)
@@ -36,10 +38,10 @@ osi3::TrafficUpdate MyTrafficParticipantModel::Step(const osi3::SensorView& curr
         if (obj.id().value() == ego_id.value())
         {
             // Simple constant acceleration model
-            auto *update = current_out.add_update();
+            auto* update = current_out.add_update();
             double velocity = obj.base().velocity().x();
             double new_velocity = velocity + acceleration_m_s_ * delta_time;
-            if (new_velocity < max_velocity_) //check if new velocity is lower than the set maximum
+            if (new_velocity < max_velocity_)  // check if new velocity is lower than the set maximum
             {
                 velocity = new_velocity;
             }

@@ -175,9 +175,9 @@ class OSMP
         if (private_log_file.is_open())
         {
             private_log_file << "OSMPDummySensor"
-                              << "::"
-                              << "template"
-                              << "<" << ((void*)this) << ">:" << category << ": " << buffer << endl;
+                             << "::"
+                             << "template"
+                             << "<" << ((void*)this) << ">:" << category << ": " << buffer << endl;
             private_log_file.flush();
         }
 #endif
@@ -235,8 +235,13 @@ class OSMP
     MyTrafficParticipantModel my_model_;
 
     /* Simple Accessors */
-    fmi2Boolean FmiValid() { return boolean_vars_[FMI_BOOLEAN_VALID_IDX]; }
-    void SetFmiValid(fmi2Boolean value) { boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value; }
+    fmi2Boolean FmiValid()
+    {
+        return boolean_vars_[FMI_BOOLEAN_VALID_IDX];
+    }
+    void SetFmiValid(fmi2Boolean value) {
+        boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value;
+    }
 
     /* Protocol Buffer Accessors */
     bool GetFmiSensorViewConfig(osi3::SensorViewConfiguration& data);
