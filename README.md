@@ -8,6 +8,10 @@ What is the general modeling approach?
 What inputs does the model need and what outputs does it generate?
 <br><br>
 
+In this template, a very simple traffic participant is modeled.
+The model consumes an osi3::SensorView as input and outputs an osi3::TrafficUpdate.
+The TrafficUpdate at the output contains the update message with updated position and velocity data.
+
 < Eye-catcher Image >
 <img src="doc/img/model_video.gif" width="800" />
 
