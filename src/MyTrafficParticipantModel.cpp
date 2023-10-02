@@ -9,8 +9,16 @@
 #include "MyTrafficParticipantModel.h"
 #include "osi_sensorview.pb.h"
 
-void MyTrafficParticipantModel::Init()
+void MyTrafficParticipantModel::Init(std::string theinstance_name, fmi2CallbackFunctions thefunctions, bool thelogging_on)
 {
+    logging_categories_.clear();
+    logging_categories_.insert("FMI");
+    logging_categories_.insert("OSMP");
+    logging_categories_.insert("OSI");
+    instance_name_ = theinstance_name;
+    functions_ = thefunctions;
+    logging_on_ = thelogging_on;
+
     acceleration_m_s_ = 1.0;
     last_time_step_ = 0;
     max_velocity_ = 13.89;

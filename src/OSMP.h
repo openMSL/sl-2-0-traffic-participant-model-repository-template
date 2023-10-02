@@ -140,7 +140,9 @@ class OSMP
         va_start(ap, format);
         char buffer[1024];
         if (!private_log_file.is_open())
+        {
             private_log_file.open(PRIVATE_LOG_PATH, ios::out | ios::app);
+        }
         if (private_log_file.is_open())
         {
 #ifdef _WIN32
@@ -167,17 +169,24 @@ class OSMP
 #endif
 #ifdef PRIVATE_LOG_PATH
         if (!private_log_file.is_open())
+        {
             private_log_file.open(PRIVATE_LOG_PATH, ios::out | ios::app);
+        }
         if (private_log_file.is_open())
         {
             private_log_file << "OSMPDummySensor"
-                             << "::" << instanceName << "<" << ((void*)this) << ">:" << category << ": " << buffer << endl;
+                              << "::"
+                              << "template"
+                              << "<" << ((void*)this) << ">:" << category << ": " << buffer << endl;
             private_log_file.flush();
         }
 #endif
 #ifdef PUBLIC_LOGGING
-        if (loggingOn && loggingCategories.count(category))
-            functions.logger(functions.componentEnvironment, instanceName.c_str(), fmi2OK, category, buffer);
+        if (logging_on_ && logging_categories_.count(category))
+        {
+            functions_.logger(functions_.componentEnvironment, instance_name_.c_str(), fmi2OK, category, buffer);
+        }
+
 #endif
 #endif
     }
@@ -187,7 +196,7 @@ class OSMP
 #if defined(VERBOSE_FMI_LOGGING) && (defined(PRIVATE_LOG_PATH) || defined(PUBLIC_LOGGING))
         va_list ap;
         va_start(ap, format);
-        internal_log("FMI", format, ap);
+        InternalLog("FMI", format, ap);
         va_end(ap);
 #endif
     }
@@ -198,7 +207,7 @@ class OSMP
 #if defined(PRIVATE_LOG_PATH) || defined(PUBLIC_LOGGING)
         va_list ap;
         va_start(ap, format);
-        internal_log(category, format, ap);
+        InternalLog(category, format, ap);
         va_end(ap);
 #endif
     }
@@ -226,14 +235,8 @@ class OSMP
     MyTrafficParticipantModel my_model_;
 
     /* Simple Accessors */
-    fmi2Boolean FmiValid()
-    {
-        return boolean_vars_[FMI_BOOLEAN_VALID_IDX];
-    }
-    void SetFmiValid(fmi2Boolean value)
-    {
-        boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value;
-    }
+    fmi2Boolean FmiValid() { return boolean_vars_[FMI_BOOLEAN_VALID_IDX]; }
+    void SetFmiValid(fmi2Boolean value) { boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value; }
 
     /* Protocol Buffer Accessors */
     bool GetFmiSensorViewConfig(osi3::SensorViewConfiguration& data);

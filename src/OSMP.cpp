@@ -46,10 +46,6 @@
 
 using namespace std;
 
-#ifdef PRIVATE_LOG_PATH
-ofstream COSMPDummySensor::private_log_file;
-#endif
-
 /*
  * ProtocolBuffer Accessors
  */
@@ -260,7 +256,7 @@ fmi2Status OSMP::DoExitInitializationMode()
     }
 
     // initialize model
-    my_model_.Init();
+    my_model_.Init(instance_name_, functions_, logging_on_);
 
     return fmi2OK;
 }
