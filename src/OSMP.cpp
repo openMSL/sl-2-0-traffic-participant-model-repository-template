@@ -46,6 +46,10 @@
 
 using namespace std;
 
+#ifdef PRIVATE_LOG_PATH
+ofstream OSMP::private_log_file;
+#endif
+
 /*
  * ProtocolBuffer Accessors
  */
