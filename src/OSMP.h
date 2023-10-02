@@ -239,6 +239,7 @@ class OSMP
     {
         return boolean_vars_[FMI_BOOLEAN_VALID_IDX];
     }
+    
     void SetFmiValid(fmi2Boolean value) {
         boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value;
     }
