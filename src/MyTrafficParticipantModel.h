@@ -17,7 +17,9 @@
 #include "fmi2FunctionTypes.h"
 #include "fmi2Functions.h"
 #include "osi_sensordata.pb.h"
+#include "osi_trafficcommandupdate.pb.h"
 #include "osi_trafficupdate.pb.h"
+#include "osi_trafficcommand.pb.h"
 
 using namespace std;
 
@@ -25,7 +27,11 @@ class MyTrafficParticipantModel
 {
   public:
     void Init(string theinstance_name, fmi2CallbackFunctions thefunctions, bool thelogging_on);
-    osi3::TrafficUpdate Step(const osi3::SensorView& current_in, double time);
+    void Step(const osi3::SensorView& sensor_view_in,
+                             const osi3::TrafficCommand& traffic_command_in,
+                             osi3::TrafficUpdate& traffic_update_out,
+                             osi3::TrafficCommandUpdate& traffic_command_update_out,
+                             double time);
 
     static double CalcNewPosition(double current_position, double velocity, double delta_time);
 
@@ -62,7 +68,7 @@ class MyTrafficParticipantModel
 #else
             vsnprintf(buffer, 1024, format, ap);
 #endif
-            private_log_file << "OSMPDummySensor"
+            private_log_file << "OSMPTrafficParticipant"
                              << "::Global:FMI: " << buffer << endl;
             private_log_file.flush();
         }
@@ -87,7 +93,7 @@ class MyTrafficParticipantModel
 
         if (private_log_file.is_open())
         {
-            private_log_file << "OSMPDummySensor"
+            private_log_file << "OSMPTrafficParticipant"
                              << "::"
                              << "template"
                              << "<" << ((void*)this) << ">:" << category << ": " << buffer << endl;

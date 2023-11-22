@@ -165,6 +165,38 @@ void OSMP::ResetFmiTrafficUpdateOut()
     integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_BASELO_IDX] = 0;
 }
 
+bool OSMP::GetFmiTrafficCommandIn(osi3::TrafficCommand& data)
+{
+    if (integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_SIZE_IDX] > 0)
+    {
+        void* buffer = DecodeIntegerToPointer(integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASELO_IDX]);
+        NormalLog("OSMP", "Got %08X %08X, reading from %p ...", integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASELO_IDX], buffer);
+        data.ParseFromArray(buffer, integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_SIZE_IDX]);
+        return true;
+    }
+    return false;
+}
+
+void OSMP::SetFmiTrafficCommandUpdateOut(const osi3::TrafficCommandUpdate& data)
+{
+    data.SerializeToString(current_output_buffer_);
+    EncodePointerToInteger(current_output_buffer_->data(), integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASELO_IDX]);
+    integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_SIZE_IDX] = (fmi2Integer)current_output_buffer_->length();
+    NormalLog("OSMP",
+              "Providing %08X %08X, writing from %p ...",
+              integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASEHI_IDX],
+              integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASELO_IDX],
+              current_output_buffer_->data());
+    swap(current_output_buffer_, last_output_buffer_);
+}
+
+void OSMP::ResetFmiTrafficCommandUpdateOut()
+{
+    integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_SIZE_IDX] = 0;
+    integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASEHI_IDX] = 0;
+    integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASELO_IDX] = 0;
+}
+
 void OSMP::RefreshFmiSensorViewConfigRequest()
 {
     osi3::SensorViewConfiguration config;
@@ -268,14 +300,20 @@ fmi2Status OSMP::DoExitInitializationMode()
 fmi2Status OSMP::DoCalc(fmi2Real current_communication_point, fmi2Real communication_step_size, fmi2Boolean no_set_fmu_state_prior_to_current_pointfmi_2_component)
 {
 
-    osi3::SensorView current_in;
+    osi3::SensorView sensor_view_in;
     double time = current_communication_point + communication_step_size;
     NormalLog("OSI", "Calculating Traffic Update at %f for %f (step size %f)", current_communication_point, time, communication_step_size);
-    if (GetFmiSensorViewIn(current_in))
+    if (GetFmiSensorViewIn(sensor_view_in))
     {
-        osi3::TrafficUpdate current_out = my_model_.Step(current_in, time);
+        osi3::TrafficCommand traffic_command_in;
+        GetFmiTrafficCommandIn(traffic_command_in);
+        osi3::TrafficUpdate traffic_update_out;
+        osi3::TrafficCommandUpdate traffic_command_update_out;
+        my_model_.Step(sensor_view_in, traffic_command_in, traffic_update_out, traffic_command_update_out, time);
+
         /* Serialize */
-        SetFmiTrafficUpdateOut(current_out);
+        SetFmiTrafficUpdateOut(traffic_update_out);
+        SetFmiTrafficCommandUpdateOut(traffic_command_update_out);
         SetFmiValid(1);
     }
     else
@@ -283,6 +321,7 @@ fmi2Status OSMP::DoCalc(fmi2Real current_communication_point, fmi2Real communica
         /* We have no valid input, so no valid output */
         NormalLog("OSI", "No valid input, therefore providing no valid output.");
         ResetFmiTrafficUpdateOut();
+        ResetFmiTrafficCommandUpdateOut();
         SetFmiValid(0);
     }
     return fmi2OK;

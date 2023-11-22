@@ -26,19 +26,21 @@ void MyTrafficParticipantModel::Init(std::string theinstance_name, fmi2CallbackF
     max_velocity_ = 13.89;
 }
 
-osi3::TrafficUpdate MyTrafficParticipantModel::Step(const osi3::SensorView& current_in, double time)
+void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
+                                                    const osi3::TrafficCommand& traffic_command_in,
+                                                    osi3::TrafficUpdate& traffic_update_out,
+                                                    osi3::TrafficCommandUpdate& traffic_command_update_out,
+                                                    double time)
 {
-    osi3::TrafficUpdate current_out;
-
     double delta_time = time - last_time_step_;
 
-    osi3::Identifier ego_id = current_in.global_ground_truth().host_vehicle_id();
-    for (const osi3::MovingObject& obj : current_in.global_ground_truth().moving_object())
+    osi3::Identifier ego_id = sensor_view_in.global_ground_truth().host_vehicle_id();
+    for (const osi3::MovingObject& obj : sensor_view_in.global_ground_truth().moving_object())
     {
         if (obj.id().value() == ego_id.value())
         {
             // Simple constant acceleration model
-            auto* update = current_out.add_update();
+            auto* update = traffic_update_out.add_update();
             double velocity = obj.base().velocity().x();
             double new_velocity = velocity + acceleration_m_s_ * delta_time;
             if (new_velocity < max_velocity_)  // check if new velocity is lower than the set maximum
@@ -51,8 +53,6 @@ osi3::TrafficUpdate MyTrafficParticipantModel::Step(const osi3::SensorView& curr
     }
 
     last_time_step_ = time;
-
-    return current_out;
 }
 
 double MyTrafficParticipantModel::CalcNewPosition(double current_position, double velocity, double delta_time)
