@@ -38,7 +38,7 @@ class MyTrafficParticipantModel
   private:
     double acceleration_m_s_;
     double last_time_step_;
-    double max_velocity_;
+    double target_velocity_;
 
     string instance_name_;
     bool logging_on_;
