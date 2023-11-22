@@ -83,9 +83,9 @@
 #include "MyTrafficParticipantModel.h"
 #include "osi_sensordata.pb.h"
 #include "osi_sensorview.pb.h"
-#include "osi_trafficupdate.pb.h"
 #include "osi_trafficcommand.pb.h"
 #include "osi_trafficcommandupdate.pb.h"
+#include "osi_trafficupdate.pb.h"
 
 using namespace std;
 
@@ -243,14 +243,9 @@ class OSMP
     MyTrafficParticipantModel my_model_;
 
     /* Simple Accessors */
-    fmi2Boolean FmiValid()
-    {
-        return boolean_vars_[FMI_BOOLEAN_VALID_IDX];
-    }
-    
-    void SetFmiValid(fmi2Boolean value) {
-        boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value;
-    }
+    fmi2Boolean FmiValid() { return boolean_vars_[FMI_BOOLEAN_VALID_IDX]; }
+
+    void SetFmiValid(fmi2Boolean value) { boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value; }
 
     /* Protocol Buffer Accessors */
     bool GetFmiSensorViewConfig(osi3::SensorViewConfiguration& data);

@@ -170,7 +170,8 @@ bool OSMP::GetFmiTrafficCommandIn(osi3::TrafficCommand& data)
     if (integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_SIZE_IDX] > 0)
     {
         void* buffer = DecodeIntegerToPointer(integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASELO_IDX]);
-        NormalLog("OSMP", "Got %08X %08X, reading from %p ...", integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASELO_IDX], buffer);
+        NormalLog(
+            "OSMP", "Got %08X %08X, reading from %p ...", integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_BASELO_IDX], buffer);
         data.ParseFromArray(buffer, integer_vars_[FMI_INTEGER_TRAFFICCOMMAND_IN_SIZE_IDX]);
         return true;
     }
@@ -180,8 +181,9 @@ bool OSMP::GetFmiTrafficCommandIn(osi3::TrafficCommand& data)
 void OSMP::SetFmiTrafficCommandUpdateOut(const osi3::TrafficCommandUpdate& data)
 {
     data.SerializeToString(current_output_buffer_);
-    EncodePointerToInteger(current_output_buffer_->data(), integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASELO_IDX]);
-    integer_vars_[FMI_INTEGER_TRAFFICUPDATE_OUT_SIZE_IDX] = (fmi2Integer)current_output_buffer_->length();
+    EncodePointerToInteger(
+        current_output_buffer_->data(), integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASEHI_IDX], integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASELO_IDX]);
+    integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_SIZE_IDX] = (fmi2Integer)current_output_buffer_->length();
     NormalLog("OSMP",
               "Providing %08X %08X, writing from %p ...",
               integer_vars_[FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASEHI_IDX],

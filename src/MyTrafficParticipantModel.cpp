@@ -23,14 +23,14 @@ void MyTrafficParticipantModel::Init(std::string theinstance_name, fmi2CallbackF
 
     acceleration_m_s_ = 1.0;
     last_time_step_ = 0;
-    target_velocity_ = 8.333;   //set 30 km/h as default target velocity of the ego vehicle
+    target_velocity_ = 8.333;  // set 30 km/h as default target velocity of the ego vehicle
 }
 
 void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
-                                                    const osi3::TrafficCommand& traffic_command_in,
-                                                    osi3::TrafficUpdate& traffic_update_out,
-                                                    osi3::TrafficCommandUpdate& traffic_command_update_out,
-                                                    double time)
+                                     const osi3::TrafficCommand& traffic_command_in,
+                                     osi3::TrafficUpdate& traffic_update_out,
+                                     osi3::TrafficCommandUpdate& traffic_command_update_out,
+                                     double time)
 {
     double delta_time = time - last_time_step_;
 
@@ -38,7 +38,7 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
     {
         for (const osi3::TrafficAction& current_action : traffic_command_in.action())
         {
-            if (current_action.has_speed_action())  //in this example, only speed actions are used
+            if (current_action.has_speed_action())  // in this example, only speed actions are used
             {
                 target_velocity_ = current_action.speed_action().absolute_target_speed();
             }

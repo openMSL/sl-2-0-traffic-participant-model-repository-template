@@ -120,19 +120,19 @@
     <ScalarVariable name="OSMPTrafficCommandUpdateOut.base.lo" valueReference="15" causality="output" variability="discrete" initial="exact">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficUpdateOut" role="base.lo" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficCommandUpdateOut" role="base.lo" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
     <ScalarVariable name="OSMPTrafficCommandUpdateOut.base.hi" valueReference="16" causality="output" variability="discrete" initial="exact">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficUpdateOut" role="base.hi" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficCommandUpdateOut" role="base.hi" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
     <ScalarVariable name="OSMPTrafficCommandUpdateOut.size" valueReference="17" causality="output" variability="discrete" initial="exact">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficUpdateOut" role="size" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficCommandUpdateOut" role="size" mime-type="application/x-open-simulation-interface; type=TrafficUpdate; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
     <ScalarVariable name="valid" valueReference="0" causality="output" variability="discrete" initial="exact">

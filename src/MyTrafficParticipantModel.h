@@ -17,9 +17,9 @@
 #include "fmi2FunctionTypes.h"
 #include "fmi2Functions.h"
 #include "osi_sensordata.pb.h"
+#include "osi_trafficcommand.pb.h"
 #include "osi_trafficcommandupdate.pb.h"
 #include "osi_trafficupdate.pb.h"
-#include "osi_trafficcommand.pb.h"
 
 using namespace std;
 
@@ -28,10 +28,10 @@ class MyTrafficParticipantModel
   public:
     void Init(string theinstance_name, fmi2CallbackFunctions thefunctions, bool thelogging_on);
     void Step(const osi3::SensorView& sensor_view_in,
-                             const osi3::TrafficCommand& traffic_command_in,
-                             osi3::TrafficUpdate& traffic_update_out,
-                             osi3::TrafficCommandUpdate& traffic_command_update_out,
-                             double time);
+              const osi3::TrafficCommand& traffic_command_in,
+              osi3::TrafficUpdate& traffic_update_out,
+              osi3::TrafficCommandUpdate& traffic_command_update_out,
+              double time);
 
     static double CalcNewPosition(double current_position, double velocity, double delta_time);
 
