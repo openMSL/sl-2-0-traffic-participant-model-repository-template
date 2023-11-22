@@ -99,22 +99,22 @@
         <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPSensorViewInConfig" role="size" mime-type="application/x-open-simulation-interface; type=SensorViewConfiguration; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
-    <ScalarVariable name="OSMPTrafficUpdateIn.base.lo" valueReference="12" causality="input" variability="discrete">
+    <ScalarVariable name="OSMPTrafficCommandIn.base.lo" valueReference="12" causality="input" variability="discrete">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPSensorViewIn" role="base.lo" mime-type="application/x-open-simulation-interface; type=SensorView; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficCommandIn" role="base.lo" mime-type="application/x-open-simulation-interface; type=SensorView; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
-    <ScalarVariable name="OSMPTrafficUpdateIn.base.hi" valueReference="13" causality="input" variability="discrete">
+    <ScalarVariable name="OSMPTrafficCommandIn.base.hi" valueReference="13" causality="input" variability="discrete">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPSensorViewIn" role="base.hi" mime-type="application/x-open-simulation-interface; type=SensorView; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficCommandIn" role="base.hi" mime-type="application/x-open-simulation-interface; type=SensorView; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
-    <ScalarVariable name="OSMPTrafficUpdateIn.size" valueReference="14" causality="input" variability="discrete">
+    <ScalarVariable name="OSMPTrafficCommandIn.size" valueReference="14" causality="input" variability="discrete">
       <Integer start="0"/>
       <Annotations>
-        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPSensorViewIn" role="size" mime-type="application/x-open-simulation-interface; type=SensorView; version=@OSIVERSION@"/></Tool>
+        <Tool name="net.pmsf.osmp" xmlns:osmp="http://xsd.pmsf.net/OSISensorModelPackaging"><osmp:osmp-binary-variable name="OSMPTrafficCommandIn" role="size" mime-type="application/x-open-simulation-interface; type=SensorView; version=@OSIVERSION@"/></Tool>
       </Annotations>
     </ScalarVariable>
     <ScalarVariable name="OSMPTrafficCommandUpdateOut.base.lo" valueReference="15" causality="output" variability="discrete" initial="exact">
