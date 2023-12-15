@@ -13,7 +13,7 @@ The model consumes an osi3::SensorView as input and outputs an osi3::TrafficUpda
 The TrafficUpdate at the output contains the update message with updated position and velocity data.
 
 < Eye-catcher Image >
-<img src="doc/img/model_video.gif" width="800" />
+<img src="doc/img/model_video.gif" alt="Eye-catcher Image" width="800" />
 
 ## Modeling Approach
 
