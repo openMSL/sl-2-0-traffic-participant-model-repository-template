@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- bare-bone scenario for driver model example -->
+<OpenSCENARIO>
+   <FileHeader revMajor="1"
+               revMinor="0"
+               date="2020-01-25T10:00:00"
+               description="bare-bone scenario for driver model example"
+               author="esmini-team"/>
+   <ParameterDeclarations>
+      <ParameterDeclaration name="EgoVehicle" parameterType="string" value="car_white"/>
+      <ParameterDeclaration name="GhostMode" parameterType="bool" value="false"/>
+   </ParameterDeclarations>
+   <CatalogLocations>
+      <VehicleCatalog>
+         <Directory path="Catalogs/Vehicles"/>
+      </VehicleCatalog>
+   </CatalogLocations>
+   <RoadNetwork>
+        <LogicFile filepath="straight_500m.xodr"/>
+   </RoadNetwork>
+   <Entities>
+      <ScenarioObject name="Ego">
+          <CatalogReference catalogName="VehicleCatalog" entryName="$EgoVehicle"/>
+          <!-- asciidoc tag::ObjectController[] -->
+          <ObjectController>
+                <Controller name="MyExternalControllerWithGhost">
+                    <Properties>
+                        <Property name="esminiController" value="ExternalController" />
+                        <Property name="useGhost" value="$GhostMode" />
+                        <Property name="headstartTime" value="2" />
+                    </Properties>
+                </Controller>
+          </ObjectController>      
+          <!-- asciidoc end::ObjectController[] -->
+      </ScenarioObject>
+      <ScenarioObject name="Target">
+         <CatalogReference catalogName="VehicleCatalog" entryName="car_red"/>
+      </ScenarioObject>      
+   </Entities>
+   <Storyboard>
+      <Init>
+         <Actions>
+            <Private entityRef="Ego">
+                <!-- asciidoc tag::TeleportAction[] -->
+                <PrivateAction>
+                    <TeleportAction>
+                        <Position>
+                            <LanePosition roadId="1" laneId="-1" offset="0" s="50"/>
+                        </Position>
+                    </TeleportAction>
+                </PrivateAction>
+                <!-- asciidoc end::TeleportAction[] -->
+                <PrivateAction>
+                    <LongitudinalAction>
+                        <SpeedAction>
+                            <SpeedActionDynamics dynamicsDimension="time" dynamicsShape="step" value="0"/>
+                            <SpeedActionTarget>
+                                <AbsoluteTargetSpeed value="0"/>
+                            </SpeedActionTarget>
+                        </SpeedAction>
+                    </LongitudinalAction>
+                </PrivateAction>            
+                <!-- asciidoc tag::ActivateController[] -->
+                <PrivateAction>
+                      <ActivateControllerAction longitudinal="true" lateral="true" />
+                </PrivateAction>
+                <!-- asciidoc end::ActivateController[] -->
+            </Private>
+            <Private entityRef="Target">
+               <PrivateAction>
+                  <TeleportAction>
+                     <Position>
+                        <LanePosition roadId="1" laneId="-1" offset="0" s="200"/>
+                     </Position>
+                  </TeleportAction>
+               </PrivateAction>            
+            </Private>          
+         </Actions>
+      </Init>
+      <Story>
+         <ParameterDeclarations/>
+         <Act name="MyAct">
+            <ManeuverGroup maximumExecutionCount="1" name="SpeedUpSequence">
+               <Actors selectTriggeringEntities="false">
+                  <EntityRef entityRef="Ego"/>
+               </Actors>
+               <Maneuver name="SpeedUpManeuver">
+                  <Event name="AccelerateEvent" priority="parallel" maximumExecutionCount="1">
+                     <Action name="AccelerateAction">
+                        <PrivateAction>
+                           <LongitudinalAction>
+                              <SpeedAction>
+                                 <SpeedActionDynamics dynamicsShape="linear" value="1" dynamicsDimension="rate" />
+                                 <SpeedActionTarget>
+                                    <AbsoluteTargetSpeed value="60" />
+                                 </SpeedActionTarget>
+                              </SpeedAction>
+                           </LongitudinalAction>
+                        </PrivateAction>
+                     </Action>
+                     <StartTrigger>
+                        <ConditionGroup>
+                          <Condition name="AccelerateEventTrigger" delay="0">
+                             <ByValueCondition>
+                                <SimulationTimeCondition value="10" rule="greaterThan"/>
+                             </ByValueCondition>
+                          </Condition>
+                        </ConditionGroup>
+                     </StartTrigger>
+                  </Event>
+               </Maneuver>
+            </ManeuverGroup>
+			<StopTrigger>
+               <ConditionGroup>
+                    <Condition name="End Of Road condition" delay="0" conditionEdge="rising">
+                        <ByEntityCondition>
+                            <TriggeringEntities triggeringEntitiesRule="any">
+                                <EntityRef entityRef="Ego"/>
+                            </TriggeringEntities>                                
+                            <EntityCondition>
+                                <EndOfRoadCondition duration="0.0" rule="greaterThan"/>
+                            </EntityCondition>
+                        </ByEntityCondition>
+                   </Condition>
+               </ConditionGroup>
+            </StopTrigger>
+         </Act>
+      </Story>
+   </Storyboard>
+</OpenSCENARIO>

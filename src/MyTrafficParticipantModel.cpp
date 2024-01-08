@@ -23,25 +23,38 @@ void MyTrafficParticipantModel::Init(std::string theinstance_name, fmi2CallbackF
 
     acceleration_m_s_ = 1.0;
     last_time_step_ = 0;
-    max_velocity_ = 13.89;
+    target_velocity_ = 8.333;  // set 30 km/h as default target velocity of the ego vehicle
 }
 
-osi3::TrafficUpdate MyTrafficParticipantModel::Step(const osi3::SensorView& current_in, double time)
+void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
+                                     const osi3::TrafficCommand& traffic_command_in,
+                                     osi3::TrafficUpdate& traffic_update_out,
+                                     osi3::TrafficCommandUpdate& traffic_command_update_out,
+                                     double time)
 {
-    osi3::TrafficUpdate current_out;
-
     double delta_time = time - last_time_step_;
 
-    osi3::Identifier ego_id = current_in.global_ground_truth().host_vehicle_id();
-    for (const osi3::MovingObject& obj : current_in.global_ground_truth().moving_object())
+    if (traffic_command_in.action_size() > 0)
+    {
+        for (const osi3::TrafficAction& current_action : traffic_command_in.action())
+        {
+            if (current_action.has_speed_action())  // in this example, only speed actions are used
+            {
+                target_velocity_ = current_action.speed_action().absolute_target_speed();
+            }
+        }
+    }
+
+    osi3::Identifier ego_id = sensor_view_in.global_ground_truth().host_vehicle_id();
+    for (const osi3::MovingObject& obj : sensor_view_in.global_ground_truth().moving_object())
     {
         if (obj.id().value() == ego_id.value())
         {
             // Simple constant acceleration model
-            auto* update = current_out.add_update();
+            auto* update = traffic_update_out.add_update();
             double velocity = obj.base().velocity().x();
             double new_velocity = velocity + acceleration_m_s_ * delta_time;
-            if (new_velocity < max_velocity_)  // check if new velocity is lower than the set maximum
+            if (new_velocity <= target_velocity_)  // check if new velocity is lower than the set maximum
             {
                 velocity = new_velocity;
             }
@@ -51,8 +64,6 @@ osi3::TrafficUpdate MyTrafficParticipantModel::Step(const osi3::SensorView& curr
     }
 
     last_time_step_ = time;
-
-    return current_out;
 }
 
 double MyTrafficParticipantModel::CalcNewPosition(double current_position, double velocity, double delta_time)
