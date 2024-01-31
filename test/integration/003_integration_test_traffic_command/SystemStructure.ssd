@@ -11,44 +11,68 @@
             </ssd:ParameterBinding>
         </ssd:ParameterBindings>
         <ssd:Elements>
-            <ssd:Component type="application/x-fmu-sharedlibrary" source="/tmp/esmini_fmu/EsminiOsiSource.fmu" implementation="CoSimulation" name="EsminiOsiSource" description="esmini Scenario Player">
+            <ssd:Component type="application/x-fmu-sharedlibrary" source="resources/EsminiOsiSource.fmu" implementation="CoSimulation" name="esmini" description="esmini scnario player packaged as OSMP FMU outputting an osi3::SensorView with GoundTruth from the scenario and osi3::TrafficCommand with actions from OpenScenario">
                 <ssd:Connectors>
-                    <ssd:Connector name="OSMPTrafficUpdateIn.base.lo" kind="input">
+                    <ssd:Connector name="OSMPTrafficCommandOut.size" kind="output">
                         <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="0.0" y="0.75"/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.857143"/>
                     </ssd:Connector>
-                    <ssd:Connector name="OSMPTrafficUpdateIn.base.hi" kind="input">
+                    <ssd:Connector name="OSMPTrafficCommandOut.base.hi" kind="output">
                         <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="0.0" y="0.5"/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.714286"/>
                     </ssd:Connector>
-                    <ssd:Connector name="OSMPTrafficUpdateIn.size" kind="input">
+                    <ssd:Connector name="OSMPTrafficCommandOut.base.lo" kind="output">
                         <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="0.0" y="0.25"/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.571429"/>
                     </ssd:Connector>
-                    <ssd:Connector name="OSMPSensorViewOut.base.hi" kind="output">
+                    <ssd:Connector name="OSMPTrafficCommandUpdateIn.size" kind="input">
                         <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="1.0" y="0.5"/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.857143"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficCommandUpdateIn.base.hi" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.714286"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficCommandUpdateIn.base.lo" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.571429"/>
                     </ssd:Connector>
                     <ssd:Connector name="OSMPSensorViewOut.size" kind="output">
                         <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="1.0" y="0.25"/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.428571"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPSensorViewOut.base.hi" kind="output">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.285714"/>
                     </ssd:Connector>
                     <ssd:Connector name="OSMPSensorViewOut.base.lo" kind="output">
                         <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="1.0" y="0.75"/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.142857"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficUpdateIn.size" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.428571"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficUpdateIn.base.hi" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.285714"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficUpdateIn.base.lo" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.142857"/>
                     </ssd:Connector>
                 </ssd:Connectors>
-                <ssd:ElementGeometry x1="-419.0" y1="-390.0" x2="12.0" y2="-81.0"/>
+                <ssd:ElementGeometry x1="-261.5" y1="-282.0" x2="329.5" y2="-2.0"/>
                 <ssd:ParameterBindings>
                     <ssd:ParameterBinding>
                         <ssd:ParameterValues>
-                            <ssv:ParameterSet version="1.0" name="Internal Parameter-Set">
+                            <ssv:ParameterSet version="1.0" name="Parameter-Set">
                                 <ssv:Parameters>
                                     <ssv:Parameter name="xosc_path">
                                         <ssv:String value="./test/integration/003_integration_test_traffic_command/control_scenario.xosc"/>
                                     </ssv:Parameter>
                                     <ssv:Parameter name="use_viewer">
-                                        <ssv:Boolean value="false"/>
+                                        <ssv:Boolean value="true"/>
                                     </ssv:Parameter>
                                 </ssv:Parameters>
                             </ssv:ParameterSet>
@@ -56,38 +80,62 @@
                     </ssd:ParameterBinding>
                 </ssd:ParameterBindings>
             </ssd:Component>
-            <ssd:Component type="application/x-fmu-sharedlibrary" source="/tmp/model_fmu/sl-2-0-traffic-participant-model-repository-template.fmu" implementation="CoSimulation" name="Model" description="">
+            <ssd:Component type="application/x-fmu-sharedlibrary" source="resources/sl-2-0-traffic-participant-model-repository-template.fmu" implementation="CoSimulation" name="sl-2-0-traffic-participant-model-repository-template" description="Demonstration C++ Traffic Participant FMU for OSI Sensor Model Packaging within OpenMSL">
                 <ssd:Connectors>
-                    <ssd:Connector name="OSMPTrafficUpdateOut.base.hi" kind="output">
-                        <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="1.0" y="0.714286"/>
-                    </ssd:Connector>
-                    <ssd:Connector name="OSMPSensorViewIn.base.hi" kind="input">
-                        <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="0.0" y="0.714286"/>
-                    </ssd:Connector>
-                    <ssd:Connector name="OSMPTrafficUpdateOut.size" kind="output">
-                        <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="1.0" y="0.571429"/>
-                    </ssd:Connector>
-                    <ssd:Connector name="OSMPSensorViewIn.base.lo" kind="input">
-                        <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="0.0" y="0.857143"/>
-                    </ssd:Connector>
-                    <ssd:Connector name="OSMPSensorViewIn.size" kind="input">
-                        <ssc:Integer/>
-                        <ssd:ConnectorGeometry x="0.0" y="0.576786"/>
-                    </ssd:Connector>
-                    <ssd:Connector name="OSMPTrafficUpdateOut.base.lo" kind="output">
+                    <ssd:Connector name="OSMPTrafficCommandUpdateOut.size" kind="output">
                         <ssc:Integer/>
                         <ssd:ConnectorGeometry x="1.0" y="0.857143"/>
                     </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficCommandUpdateOut.base.hi" kind="output">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.714286"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficCommandUpdateOut.base.lo" kind="output">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.571429"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficCommandIn.size" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.857143"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficCommandIn.base.hi" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.714286"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficCommandIn.base.lo" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.571429"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficUpdateOut.size" kind="output">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.428571"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficUpdateOut.base.hi" kind="output">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.285714"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPTrafficUpdateOut.base.lo" kind="output">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="1.0" y="0.142857"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPSensorViewIn.size" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.428571"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPSensorViewIn.base.hi" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.285714"/>
+                    </ssd:Connector>
+                    <ssd:Connector name="OSMPSensorViewIn.base.lo" kind="input">
+                        <ssc:Integer/>
+                        <ssd:ConnectorGeometry x="0.0" y="0.142857"/>
+                    </ssd:Connector>
                 </ssd:Connectors>
-                <ssd:ElementGeometry x1="262.0" y1="-466.5" x2="787.0" y2="-79.5"/>
+                <ssd:ElementGeometry x1="611.5" y1="-282.0" x2="1199.5" y2="-2.0"/>
                 <ssd:ParameterBindings>
                     <ssd:ParameterBinding>
                         <ssd:ParameterValues>
-                            <ssv:ParameterSet version="1.0" name="Internal Parameter-Set">
+                            <ssv:ParameterSet version="1.0" name="Parameter-Set">
                                 <ssv:Parameters/>
                             </ssv:ParameterSet>
                         </ssd:ParameterValues>
@@ -96,12 +144,18 @@
             </ssd:Component>
         </ssd:Elements>
         <ssd:Connections>
-            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.base.lo" endElement="EsminiOsiSource" endConnector="OSMPTrafficUpdateIn.base.lo" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.base.hi" endElement="EsminiOsiSource" endConnector="OSMPTrafficUpdateIn.base.hi" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="Model" startConnector="OSMPTrafficUpdateOut.size" endElement="EsminiOsiSource" endConnector="OSMPTrafficUpdateIn.size" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.base.hi" endElement="Model" endConnector="OSMPSensorViewIn.base.hi" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.size" endElement="Model" endConnector="OSMPSensorViewIn.size" suppressUnitConversion="false"/>
-            <ssd:Connection startElement="EsminiOsiSource" startConnector="OSMPSensorViewOut.base.lo" endElement="Model" endConnector="OSMPSensorViewIn.base.lo" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="esmini" startConnector="OSMPTrafficCommandOut.size" endElement="sl-2-0-traffic-participant-model-repository-template" endConnector="OSMPTrafficCommandIn.size" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="esmini" startConnector="OSMPTrafficCommandOut.base.hi" endElement="sl-2-0-traffic-participant-model-repository-template" endConnector="OSMPTrafficCommandIn.base.hi" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="esmini" startConnector="OSMPTrafficCommandOut.base.lo" endElement="sl-2-0-traffic-participant-model-repository-template" endConnector="OSMPTrafficCommandIn.base.lo" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="sl-2-0-traffic-participant-model-repository-template" startConnector="OSMPTrafficCommandUpdateOut.size" endElement="esmini" endConnector="OSMPTrafficCommandUpdateIn.size" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="sl-2-0-traffic-participant-model-repository-template" startConnector="OSMPTrafficCommandUpdateOut.base.hi" endElement="esmini" endConnector="OSMPTrafficCommandUpdateIn.base.hi" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="sl-2-0-traffic-participant-model-repository-template" startConnector="OSMPTrafficCommandUpdateOut.base.lo" endElement="esmini" endConnector="OSMPTrafficCommandUpdateIn.base.lo" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="esmini" startConnector="OSMPSensorViewOut.size" endElement="sl-2-0-traffic-participant-model-repository-template" endConnector="OSMPSensorViewIn.size" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="esmini" startConnector="OSMPSensorViewOut.base.hi" endElement="sl-2-0-traffic-participant-model-repository-template" endConnector="OSMPSensorViewIn.base.hi" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="esmini" startConnector="OSMPSensorViewOut.base.lo" endElement="sl-2-0-traffic-participant-model-repository-template" endConnector="OSMPSensorViewIn.base.lo" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="sl-2-0-traffic-participant-model-repository-template" startConnector="OSMPTrafficUpdateOut.size" endElement="esmini" endConnector="OSMPTrafficUpdateIn.size" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="sl-2-0-traffic-participant-model-repository-template" startConnector="OSMPTrafficUpdateOut.base.hi" endElement="esmini" endConnector="OSMPTrafficUpdateIn.base.hi" suppressUnitConversion="false"/>
+            <ssd:Connection startElement="sl-2-0-traffic-participant-model-repository-template" startConnector="OSMPTrafficUpdateOut.base.lo" endElement="esmini" endConnector="OSMPTrafficUpdateIn.base.lo" suppressUnitConversion="false"/>
         </ssd:Connections>
         <ssd:SystemGeometry x1="-619.0" y1="-666.5" x2="1849.5" y2="126.5"/>
     </ssd:System>
