@@ -23,7 +23,7 @@ void MyTrafficParticipantModel::Init(std::string theinstance_name, fmi2CallbackF
 
     acceleration_m_s_ = 1.0;
     last_time_step_ = 0;
-    target_velocity_ = 8.333;  // set 30 km/h as default target velocity of the ego vehicle
+    target_velocity_ = 0.0;
 }
 
 void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
@@ -33,19 +33,29 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
                                      double time)
 {
     double delta_time = time - last_time_step_;
+    osi3::Identifier ego_id = sensor_view_in.global_ground_truth().host_vehicle_id();
 
     if (traffic_command_in.action_size() > 0)
     {
         for (const osi3::TrafficAction& current_action : traffic_command_in.action())
         {
-            if (current_action.has_speed_action())  // in this example, only speed actions are used
+            // in this example, only speed actions are used
+            if (current_action.has_speed_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
             {
                 target_velocity_ = current_action.speed_action().absolute_target_speed();
+
+                printf("Received speed action (id %u) started: objId %d, targetSpeed %.2f m/s, shape %d, duration %.2f s distance %.2f m\n",
+                       static_cast<unsigned int>(current_action.speed_action().action_header().action_id().value()),
+                       static_cast<unsigned int>(traffic_command_in.traffic_participant_id().value()),
+                       current_action.speed_action().absolute_target_speed(),
+                       static_cast<int>(current_action.speed_action().dynamics_shape()),
+                       current_action.speed_action().duration(),
+                       current_action.speed_action().distance());
             }
         }
     }
 
-    osi3::Identifier ego_id = sensor_view_in.global_ground_truth().host_vehicle_id();
+
     for (const osi3::MovingObject& obj : sensor_view_in.global_ground_truth().moving_object())
     {
         if (obj.id().value() == ego_id.value())
