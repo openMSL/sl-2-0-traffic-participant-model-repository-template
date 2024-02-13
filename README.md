@@ -29,30 +29,32 @@ What parameters are used internally?
 Which parameters can be set by the user?
 Each parameter should have a short description as shown in the following example.
 
-| Parameter                      | Description                                                         |
-| ------------------------------ | ------------------------------------------------------------------- |
-| `no_of_beams_vertical`         | Number of beams in vertical direction, e.g. layers, of the lidar    |
-| `no_of_beams_horizontal`       | Number of beams per layer of the lidar                              |
+| Parameter     | Description                              |
+|---------------|------------------------------------------|
+| `parameter_a` | Some parameter to customize the model    |
+| `parameter_b` | Another parameter to customize the model |
 
 ## Interface
 
 What interfaces are used as model input and model output?
 All required field of the interface shall be named in a list as shown in the following example.
 
-### Input: Required Fields in osi3::SensorView or osi3::TrafficCommand
+### Input: Required Fields in osi3::SensorView and/or osi3::TrafficCommand
 
-* `sensor_view.mounting_position`
 * `sensor_view.global_ground_truth.timestamp`
 * `sensor_view.global_ground_truth.host_vehicle_id`
-* `sensor_view.global_ground_truth.stationary_object.id`
-* `sensor_view.global_ground_truth.stationary_object.base.position`
-* `sensor_view.global_ground_truth.stationary_object.base.orientation`
-* `sensor_view.global_ground_truth.stationary_object.base.dimension`
+* `sensor_view.global_ground_truth.moving_object.id`
+* `sensor_view.global_ground_truth.moving_object.base.position`
+* `sensor_view.global_ground_truth.moving_object.base.orientation`
+* `sensor_view.global_ground_truth.moving_object.base.velocity`
+* `traffic_command.traffic_participant_id`
+* `traffic_command.action`
 
-### Output: Fields in osi3::TrafficUpdate or osi3::TrafficCommandUpdate Filled by the Model
+### Output: Fields in osi3::TrafficUpdate and/or osi3::TrafficCommandUpdate filled by the Model
 
 * `traffic_update.timestamp`
 * `traffic_update.update.base.position`
+* `traffic_update.update.base.orientation`
 * `traffic_update.update.base.velocity`
 
 ## Build Instructions
