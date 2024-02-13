@@ -1,10 +1,10 @@
-# 002 Smoke Test Scenario
+# 002 Integration Test Scenario
 
 This test checks if the traffic participant model runs in a closed-loop simulation without any runtime errors.
 
 ## System Structure Definition
 
-The traffic participant model is connected both with the input and the output to the esmini FMU, as shown in the following image.
+The traffic participant model is connected both with the SensorView input and the TrafficUpdate output to the esmini FMU, as shown in the following image.
 
 <img alt="System Structure" src="system_structure.png" width="450">
 

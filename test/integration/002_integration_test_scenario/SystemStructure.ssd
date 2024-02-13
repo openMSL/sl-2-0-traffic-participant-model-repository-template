@@ -45,7 +45,7 @@
                             <ssv:ParameterSet version="1.0" name="Internal Parameter-Set">
                                 <ssv:Parameters>
                                     <ssv:Parameter name="xosc_path">
-                                        <ssv:String value="./test/integration/002_smoke_test_scenario/control_scenario.xosc"/>
+                                        <ssv:String value="./test/integration/002_integration_test_scenario/control_scenario.xosc"/>
                                     </ssv:Parameter>
                                     <ssv:Parameter name="use_viewer">
                                         <ssv:Boolean value="false"/>
