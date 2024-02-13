@@ -9,7 +9,7 @@ What inputs does the model need and what outputs does it generate?
 <br><br>
 
 In this template, a very simple traffic participant is modeled.
-The model consumes an osi3::SensorView as input and outputs an osi3::TrafficUpdate.
+The model consumes an osi3::SensorView and an osi3::TrafficCommand as input and outputs an osi3::TrafficUpdate and an osi3::TrafficCommandUpdate.
 The TrafficUpdate at the output contains the update message with updated position and velocity data.
 
 < Eye-catcher Image >
