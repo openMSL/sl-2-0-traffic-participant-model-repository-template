@@ -243,9 +243,15 @@ class OSMP
     MyTrafficParticipantModel my_model_;
 
     /* Simple Accessors */
-    fmi2Boolean FmiValid() { return boolean_vars_[FMI_BOOLEAN_VALID_IDX]; }
+    fmi2Boolean FmiValid()
+    {
+        return boolean_vars_[FMI_BOOLEAN_VALID_IDX];
+    }
 
-    void SetFmiValid(fmi2Boolean value) { boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value; }
+    void SetFmiValid(fmi2Boolean value)
+    {
+        boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value;
+    }
 
     /* Protocol Buffer Accessors */
     bool GetFmiSensorViewConfig(osi3::SensorViewConfiguration& data);

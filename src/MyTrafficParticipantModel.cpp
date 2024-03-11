@@ -112,7 +112,6 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
         }
     }
 
-
     for (const osi3::MovingObject& obj : sensor_view_in.global_ground_truth().moving_object())
     {
         if (obj.id().value() == ego_id.value())
