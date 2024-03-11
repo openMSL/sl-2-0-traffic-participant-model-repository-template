@@ -310,7 +310,12 @@ fmi2Status OSMP::DoCalc(fmi2Real current_communication_point, fmi2Real communica
         osi3::TrafficCommand traffic_command_in;
         GetFmiTrafficCommandIn(traffic_command_in);
         osi3::TrafficUpdate traffic_update_out;
+        traffic_update_out.mutable_version()->CopyFrom(osi3::InterfaceVersion::descriptor()->file()->options().GetExtension(osi3::current_interface_version));
+        traffic_update_out.mutable_timestamp()->CopyFrom(traffic_command_in.timestamp());
         osi3::TrafficCommandUpdate traffic_command_update_out;
+        traffic_command_update_out.mutable_version()->CopyFrom(osi3::InterfaceVersion::descriptor()->file()->options().GetExtension(osi3::current_interface_version));
+        traffic_update_out.mutable_timestamp()->CopyFrom(traffic_command_in.timestamp());
+
         my_model_.Step(sensor_view_in, traffic_command_in, traffic_update_out, traffic_command_update_out, time);
 
         /* Serialize */
