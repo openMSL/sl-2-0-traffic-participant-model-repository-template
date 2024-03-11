@@ -34,6 +34,7 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
 {
     double delta_time = time - last_time_step_;
     osi3::Identifier ego_id = sensor_view_in.global_ground_truth().host_vehicle_id();
+    traffic_command_update_out.mutable_traffic_participant_id()->set_value(ego_id.value());
 
     if (traffic_command_in.action_size() > 0)
     {
@@ -51,6 +52,62 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
                        static_cast<int>(current_action.speed_action().dynamics_shape()),
                        current_action.speed_action().duration(),
                        current_action.speed_action().distance());
+            }
+            // dismiss all other actions
+            else if (current_action.has_follow_trajectory_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.follow_trajectory_action().action_header().action_id().value());
+            }
+            else if (current_action.has_follow_path_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.follow_path_action().action_header().action_id().value());
+            }
+            else if (current_action.has_acquire_global_position_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.acquire_global_position_action().action_header().action_id().value());
+            }
+            else if (current_action.has_lane_change_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.lane_change_action().action_header().action_id().value());
+            }
+            else if (current_action.has_abort_actions_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.abort_actions_action().action_header().action_id().value());
+            }
+            else if (current_action.has_end_actions_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.end_actions_action().action_header().action_id().value());
+            }
+            else if (current_action.has_custom_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.custom_action().action_header().action_id().value());
+            }
+            else if (current_action.has_longitudinal_distance_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.longitudinal_distance_action().action_header().action_id().value());
+            }
+            else if (current_action.has_lane_offset_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.lane_offset_action().action_header().action_id().value());
+            }
+            else if (current_action.has_lateral_distance_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.lateral_distance_action().action_header().action_id().value());
+            }
+            else if (current_action.has_teleport_action() && traffic_command_in.traffic_participant_id().value() == ego_id.value())
+            {
+                auto* dismissed_action = traffic_command_update_out.add_dismissed_action();
+                dismissed_action->mutable_dismissed_action_id()->set_value(current_action.teleport_action().action_header().action_id().value());
             }
         }
     }
