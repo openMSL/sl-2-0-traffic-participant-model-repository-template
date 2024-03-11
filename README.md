@@ -52,10 +52,14 @@ All required field of the interface shall be named in a list as shown in the fol
 
 ### Output: Fields in osi3::TrafficUpdate and/or osi3::TrafficCommandUpdate filled by the Model
 
+* `traffic_update.version`
 * `traffic_update.timestamp`
 * `traffic_update.update.base.position`
 * `traffic_update.update.base.orientation`
 * `traffic_update.update.base.velocity`
+* `traffic_command_update.version`
+* `traffic_command_update.timestamp`
+* `traffic_command_update.dismissed_action`
 
 ## Build Instructions
 

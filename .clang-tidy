@@ -261,5 +261,7 @@ CheckOptions:
     value:           0
   - key:             readability-identifier-length.MinimumParameterNameLength
     value:           0
+  - key:             readability-function-cognitive-complexity.Threshold
+    value:           100
 ...
 
