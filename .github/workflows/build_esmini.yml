@@ -18,7 +18,7 @@ jobs:
 
       - name: Get esmini
         if: steps.cache-esmini-fmu.outputs.cache-hit != 'true'
-        run: git clone https://github.com/Persival-GmbH/esmini_all.git  #TODO: change to original esmini repo once merged
+        run: git clone https://github.com/esmini/esmini.git
 
       - name: Rename esmini folder
         if: steps.cache-esmini-fmu.outputs.cache-hit != 'true'
@@ -27,7 +27,7 @@ jobs:
       - name: Checkout master Branch
         if: steps.cache-esmini-fmu.outputs.cache-hit != 'true'
         working-directory: esmini
-        run: git checkout feature/osi_traffic_cmd_OSMP #TODO: change to master once merged
+        run: git checkout master
 
       - name: Update Submodules
         if: steps.cache-esmini-fmu.outputs.cache-hit != 'true'
