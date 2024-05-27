@@ -35,6 +35,8 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
     double delta_time = time - last_time_step_;
     osi3::Identifier ego_id = sensor_view_in.global_ground_truth().host_vehicle_id();
     traffic_command_update_out.mutable_traffic_participant_id()->set_value(ego_id.value());
+    traffic_command_update_out.mutable_timestamp()->set_nanos(sensor_view_in.timestamp().nanos());
+    traffic_command_update_out.mutable_timestamp()->set_seconds(sensor_view_in.timestamp().seconds());
 
     if (traffic_command_in.action_size() > 0)
     {
@@ -112,6 +114,8 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
         }
     }
 
+    traffic_update_out.mutable_timestamp()->set_nanos(sensor_view_in.timestamp().nanos());
+    traffic_update_out.mutable_timestamp()->set_seconds(sensor_view_in.timestamp().seconds());
     for (const osi3::MovingObject& obj : sensor_view_in.global_ground_truth().moving_object())
     {
         if (obj.id().value() == ego_id.value())
