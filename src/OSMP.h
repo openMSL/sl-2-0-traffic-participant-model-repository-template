@@ -7,7 +7,7 @@
 #pragma once
 
 #ifndef FMU_SHARED_OBJECT
-#define FMI2_FUNCTION_PREFIX OSMPDummySensor_
+#define FMI2_FUNCTION_PREFIX OSMPTrafficParticipant_
 #endif
 #include "fmi2Functions.h"
 
@@ -55,7 +55,13 @@
 #define FMI_INTEGER_SENSORVIEW_CONFIG_BASELO_IDX 9
 #define FMI_INTEGER_SENSORVIEW_CONFIG_BASEHI_IDX 10
 #define FMI_INTEGER_SENSORVIEW_CONFIG_SIZE_IDX 11
-#define FMI_INTEGER_LAST_IDX FMI_INTEGER_SENSORVIEW_CONFIG_SIZE_IDX
+#define FMI_INTEGER_TRAFFICCOMMAND_IN_BASELO_IDX 12
+#define FMI_INTEGER_TRAFFICCOMMAND_IN_BASEHI_IDX 13
+#define FMI_INTEGER_TRAFFICCOMMAND_IN_SIZE_IDX 14
+#define FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASELO_IDX 15
+#define FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_BASEHI_IDX 16
+#define FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_SIZE_IDX 17
+#define FMI_INTEGER_LAST_IDX FMI_INTEGER_TRAFFICCOMMANDUPDATE_OUT_SIZE_IDX
 #define FMI_INTEGER_VARS (FMI_INTEGER_LAST_IDX + 1)
 
 /* Real Variables */
@@ -77,6 +83,8 @@
 #include "MyTrafficParticipantModel.h"
 #include "osi_sensordata.pb.h"
 #include "osi_sensorview.pb.h"
+#include "osi_trafficcommand.pb.h"
+#include "osi_trafficcommandupdate.pb.h"
 #include "osi_trafficupdate.pb.h"
 
 using namespace std;
@@ -150,7 +158,7 @@ class OSMP
 #else
             vsnprintf(buffer, 1024, format, ap);
 #endif
-            private_log_file << "OSMPDummySensor"
+            private_log_file << "OSMPTrafficParticipant"
                              << "::Global:FMI: " << buffer << endl;
             private_log_file.flush();
         }
@@ -239,8 +247,9 @@ class OSMP
     {
         return boolean_vars_[FMI_BOOLEAN_VALID_IDX];
     }
-    
-    void SetFmiValid(fmi2Boolean value) {
+
+    void SetFmiValid(fmi2Boolean value)
+    {
         boolean_vars_[FMI_BOOLEAN_VALID_IDX] = value;
     }
 
@@ -251,6 +260,9 @@ class OSMP
     bool GetFmiSensorViewIn(osi3::SensorView& data);
     void SetFmiTrafficUpdateOut(const osi3::TrafficUpdate& data);
     void ResetFmiTrafficUpdateOut();
+    bool GetFmiTrafficCommandIn(osi3::TrafficCommand& data);
+    void SetFmiTrafficCommandUpdateOut(const osi3::TrafficCommandUpdate& data);
+    void ResetFmiTrafficCommandUpdateOut();
 
     /* Refreshing of Calculated Parameters */
     void RefreshFmiSensorViewConfigRequest();
