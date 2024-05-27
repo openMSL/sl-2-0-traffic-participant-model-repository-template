@@ -118,6 +118,7 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
         {
             // Simple constant acceleration model
             auto* update = traffic_update_out.add_update();
+            update->mutable_id()->set_value(obj.id().value());
             double velocity = obj.base().velocity().x();
             double new_velocity = velocity + acceleration_m_s_ * delta_time;
             if (new_velocity <= target_velocity_)  // check if new velocity is lower than the set maximum
