@@ -16,6 +16,10 @@ jobs:
     name: Build esmini FMU
     uses: ./.github/workflows/build_esmini.yml
 
+  build_osi-validation:
+    name: Build osi-validation
+    uses: ./.github/workflows/build_osi-validation.yml
+
   build_osi_field_checker_fmu:
     name: Build OSI Field Checker FMU
     uses: ./.github/workflows/build_osi_field_checker.yml
@@ -90,6 +94,13 @@ jobs:
         with:
           path: /tmp/esmini_fmu
           key: ${{ runner.os }}-esmini-fmu
+
+      - name: Cache osi-validation
+        id: cache-osi-validation
+        uses: actions/cache@v3
+        with:
+          path: /tmp/osi-validation
+          key: ${{ runner.os }}-osi-validation
 
       - name: Cache OSI Field Checker
         id: cache-osi-field-checker
