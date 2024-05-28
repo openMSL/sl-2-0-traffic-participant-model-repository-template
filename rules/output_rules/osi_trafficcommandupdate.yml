@@ -1,0 +1,12 @@
+TrafficCommandUpdate:
+  version:
+    - is_set:
+  timestamp:
+    - is_set:
+  traffic_participant_id:
+    - is_set:
+  dismissed_action:
+    - is_set:
+  DismissedAction:
+    dismissed_action_id:
+    failure_reason:
