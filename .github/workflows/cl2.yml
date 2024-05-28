@@ -167,7 +167,17 @@ jobs:
         with:
           name: ${{ steps.check-for-trace-files.outputs.trace_file_name }}
           path: ./test/integration/${{ matrix.path }}/output/${{ steps.check-for-trace-files.outputs.trace_file_name }}
-          
+
+      - name: Check Trace Files with osi-validation
+        if: steps.cache-esmini-fmu.outputs.cache-hit != 'true'
+        working-directory: ./test/integration/${{ matrix.path }}/output
+        run: |
+          source /tmp/osi-validation/.venv/bin/activate
+          for filename in ./*.osi; do
+            osivalidator --rules /tmp/osi-validation/rules/ --data ${filename}
+          done
+           
+
       - name: Check For Python Scripts
         id: check-for-python-scripts
         working-directory: ./test/integration/${{ matrix.path }}
