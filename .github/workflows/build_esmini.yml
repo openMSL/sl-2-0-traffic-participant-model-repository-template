@@ -18,6 +18,8 @@ jobs:
 
       - name: Get esmini
         if: steps.cache-esmini-fmu.outputs.cache-hit != 'true'
+        env:
+          GIT_CLONE_PROTECTION_ACTIVE: false
         run: git clone https://github.com/esmini/esmini.git
 
       - name: Checkout master Branch
