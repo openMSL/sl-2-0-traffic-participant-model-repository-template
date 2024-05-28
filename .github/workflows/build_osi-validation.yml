@@ -26,19 +26,12 @@ jobs:
       - name: Checkout master Branch
         if: steps.cache-osi-validation.outputs.cache-hit != 'true'
         working-directory: /tmp/osi-validation
-        run: git checkout master
+        run: git checkout 71-support-more-top-level-messages
 
       - name: Update Submodules
         if: steps.cache-osi-validation.outputs.cache-hit != 'true'
         working-directory: /tmp/osi-validation
         run: git submodule update --init
-
-      - name: Temporarily checkout OSI branch
-        if: steps.cache-osi-validation.outputs.cache-hit != 'true'
-        working-directory: /tmp/osi-validation
-        run: |
-          cd open-simulation-interface
-          git checkout 817-support-more-top-level-messages-in-ositrace
 
       - name: Build osi-validation
         if: steps.cache-osi-validation.outputs.cache-hit != 'true'
