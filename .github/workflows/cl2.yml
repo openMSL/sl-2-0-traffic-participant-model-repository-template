@@ -179,14 +179,13 @@ jobs:
 
       - name: Check Trace Files with osi-validation and model output rules
         if: steps.check-for-trace-files.outputs.found_trace == 1
-        working-directory: ./test/integration/${{ matrix.path }}/output
         run: |
-          if [ -d "rules/output_rules" ]; then
+          if [ -d "./rules/output_rules" ]; then
             source /tmp/osi-validation/.venv/bin/activate
-            for filename in ./*.osi; do
-              osivalidator --rules /tmp/osi-validation/rules/ --data ${filename}
+            for filename in ./test/integration/${{ matrix.path }}/output/*.osi; do
+              osivalidator --rules ./rules/output_rules --data ${filename}
             done
-          else echo "No custom output rules found in rules/output_rules";
+          else echo "No custom output rules found in ./rules/output_rules";
           fi
 
       - name: Check For Python Scripts
