@@ -23,10 +23,10 @@ jobs:
           GIT_CLONE_PROTECTION_ACTIVE: false
         run: git clone https://github.com/OpenSimulationInterface/osi-validation.git
 
-      - name: Checkout master Branch
+      - name: Checkout develop Branch
         if: steps.cache-osi-validation.outputs.cache-hit != 'true'
         working-directory: /tmp/osi-validation
-        run: git checkout 71-support-more-top-level-messages
+        run: git checkout develop_traffic_participant_model
 
       - name: Update Submodules
         if: steps.cache-osi-validation.outputs.cache-hit != 'true'
