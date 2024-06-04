@@ -131,6 +131,7 @@ void MyTrafficParticipantModel::Step(const osi3::SensorView& sensor_view_in,
             }
             update->mutable_base()->mutable_velocity()->set_x(velocity);
             update->mutable_base()->mutable_position()->set_x(CalcNewPosition(obj.base().position().x(), velocity, delta_time));
+            update->mutable_base()->mutable_orientation()->set_yaw(0.0);
         }
     }
 
