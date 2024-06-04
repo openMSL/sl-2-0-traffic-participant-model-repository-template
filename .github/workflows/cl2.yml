@@ -20,10 +20,6 @@ jobs:
     name: Build osi-validation
     uses: ./.github/workflows/build_osi-validation.yml
 
-  build_osi_field_checker_fmu:
-    name: Build OSI Field Checker FMU
-    uses: ./.github/workflows/build_osi_field_checker.yml
-
   build_openmcx:
     name: Build OpenMCx
     uses: ./.github/workflows/build_openmcx.yml
@@ -43,7 +39,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
   run_integration_test:
-    needs: [build_tracefile_player, build_tracefile_writer, build_openmcx, build_osi_field_checker_fmu, build_esmini, generate_integration_test_paths]
+    needs: [build_tracefile_player, build_tracefile_writer, build_openmcx, build_esmini, generate_integration_test_paths]
     name: Integration Test
     runs-on: ubuntu-latest
     strategy:
@@ -101,13 +97,6 @@ jobs:
         with:
           path: /tmp/osi-validation
           key: ${{ runner.os }}-osi-validation
-
-      - name: Cache OSI Field Checker
-        id: cache-osi-field-checker
-        uses: actions/cache@v3
-        with:
-          path: /tmp/osi-field-checker
-          key: ${{ runner.os }}-osi-field-checker
 
       - name: Cache OpenMCx
         id: cache-openmcx
