@@ -11,6 +11,7 @@ The traffic participant model is connected with the input to the trace file play
 ## Scenario
 
 The ego vehicle is placed on a straight road.
+In front of the ego, there is another vehicle, that is not used by the traffic participant model.
 Since there is no FMU connected to the output, the model output is neglected.
 
 ## Pass/Fail Criterion

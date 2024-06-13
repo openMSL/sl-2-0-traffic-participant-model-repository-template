@@ -37,29 +37,33 @@ Each parameter should have a short description as shown in the following example
 ## Interface
 
 What interfaces are used as model input and model output?
-All required field of the interface shall be named in a list as shown in the following example.
+All required and optional messages of the interface shall be named in a list as shown in the following example.
 
 ### Input: Required Fields in osi3::SensorView and/or osi3::TrafficCommand
 
-* `sensor_view.global_ground_truth.timestamp`
-* `sensor_view.global_ground_truth.host_vehicle_id`
-* `sensor_view.global_ground_truth.moving_object.id`
-* `sensor_view.global_ground_truth.moving_object.base.position`
-* `sensor_view.global_ground_truth.moving_object.base.orientation`
-* `sensor_view.global_ground_truth.moving_object.base.velocity`
-* `traffic_command.traffic_participant_id`
-* `traffic_command.action`
+| OSI Message                                                      | Required / Optional |
+|------------------------------------------------------------------|---------------------|
+| `sensor_view.global_ground_truth.timestamp`                      | required            |
+| `sensor_view.global_ground_truth.host_vehicle_id`                | required            |
+| `sensor_view.global_ground_truth.moving_object.id`               | required            |
+| `sensor_view.global_ground_truth.moving_object.base.position`    | required            |
+| `sensor_view.global_ground_truth.moving_object.base.orientation` | required            |
+| `sensor_view.global_ground_truth.moving_object.base.velocity`    | required            |
+| `traffic_command.traffic_participant_id`                         | required            |
+| `traffic_command.action`                                         | optional            |
 
 ### Output: Fields in osi3::TrafficUpdate and/or osi3::TrafficCommandUpdate filled by the Model
 
-* `traffic_update.version`
-* `traffic_update.timestamp`
-* `traffic_update.update.base.position`
-* `traffic_update.update.base.orientation`
-* `traffic_update.update.base.velocity`
-* `traffic_command_update.version`
-* `traffic_command_update.timestamp`
-* `traffic_command_update.dismissed_action`
+| OSI Message                               | Required / Optional |
+|-------------------------------------------|---------------------|
+| `traffic_update.version`                  | required            |
+| `traffic_update.timestamp`                | required            |
+| `traffic_update.update.base.position`     | required            |
+| `traffic_update.update.base.orientation`  | required            |
+| `traffic_update.update.base.velocity`     | required            |
+| `traffic_command_update.version`          | required            |
+| `traffic_command_update.timestamp`        | required            |
+| `traffic_command_update.dismissed_action` | optional            |
 
 ## Build Instructions
 
